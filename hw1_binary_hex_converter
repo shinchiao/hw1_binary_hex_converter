@@ -1,0 +1,31 @@
+# 讓使用者輸入數字
+num = int(input("請輸入一個 0 到 255 之間的數字: "))
+
+# 確保輸入範圍正確
+if num < 0 or num > 255:
+    print("請輸入有效範圍內的數字！")
+else:
+    # **手動計算二進位**（從最高位數開始，每次除 2 取餘數）
+    binary_list = []
+    n = num
+    for i in range(8):  # 8 位二進位（因為最大數 255 = 11111111）
+        binary_list.append(str(n % 2))  # 取餘數
+        n = n // 2  # 除以 2，繼續下一輪
+    binary_list.reverse()  # 反轉順序，因為我們是從最低位開始計算的
+    binary_str = "".join(binary_list)  # 轉換成字串
+
+    # **手動計算十六進位**（拆成兩組四位二進位）
+    hex_dict = {
+        "0000": "0", "0001": "1", "0010": "2", "0011": "3",
+        "0100": "4", "0101": "5", "0110": "6", "0111": "7",
+        "1000": "8", "1001": "9", "1010": "A", "1011": "B",
+        "1100": "C", "1101": "D", "1110": "E", "1111": "F"
+    }
+    high_bits = binary_str[:4]  # 前 4 位
+    low_bits = binary_str[4:]   # 後 4 位
+    hex_str = hex_dict[high_bits] + hex_dict[low_bits]  # 轉換並組合
+
+    # **輸出結果**
+    print(f"十進位數字：{num}")
+    print(f"二進位表示：{binary_str}")
+    print(f"十六進位表示：{hex_str}")
